@@ -4,12 +4,9 @@ export async function updateClothes(req, res) {
     const db = dbConnect();
     const clothesCollection = db.collection("clothes");
 
-    const { field, value } = req.body;
     const { id } = req.params;
-    const update = {}
-    update[field] = value;
 
-    const result = await clothesCollection.doc(id).update(update)
+    const result = await clothesCollection.doc(id).update(req.body)
         .catch(err => {
             res.status(500).send({ success: false, message: err });
             return;
